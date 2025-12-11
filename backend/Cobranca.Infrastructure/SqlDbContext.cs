@@ -38,5 +38,8 @@ public class SqlDbContext : DbContext
 
         entityProperties.Where(isDateTimeType).ToList().ForEach(p => p.SetColumnType("datetime2"));
         entityProperties.Where(isDecimalType).ToList().ForEach(p => p.SetColumnType("decimal(18,2)"));
+
+        DataBaseSeeder.SeedData(mb);
     }
 }
+

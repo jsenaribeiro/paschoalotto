@@ -8,9 +8,11 @@ public class ParcelaConfiguration : AbstractConfiguration<Parcela, uint>
 {
     public override void Configure(EntityTypeBuilder<Parcela> builder)
     {
-        builder.ToTable("Parcelas");
+        builder.ToTable("Parcelas").HasKey(p => p.Id);
 
-        builder.HasKey(p => p.Id);
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn();
 
         builder.Property(p => p.Numero)
             .IsRequired();

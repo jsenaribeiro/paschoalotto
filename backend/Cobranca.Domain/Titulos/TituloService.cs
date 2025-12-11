@@ -13,14 +13,12 @@ public class TituloService
     public TituloService(IServiceProvider provider) => 
         _unitOfWork = (provider.GetService(typeof(IUnitOfWork)) as IUnitOfWork)!;
 
-    public Task<Titulo[]> ObterTitulosEmAtrasoAsync()
-    {
-        return _unitOfWork.Titulos.ObterAtrasadosAsync();
-    }
+    public Task<Titulo[]> ObterTitulosEmAtrasoAsync() => 
+        _unitOfWork.Titulos.ObterAtrasadosAsync();
 
     public Task<Titulo[]> ObterTodosTitulosAsync() =>
-        _unitOfWork.Titulos.ListAsync(true);
+        _unitOfWork.Titulos.ObterTodosAsync();
 
     public Task<Titulo[]> ObterTodosTitulosAsync(StatusTitulo statusTitulo) => 
-        _unitOfWork.Titulos.FilterBy(t => t.Status == statusTitulo).ListAsync();
+        _unitOfWork.Titulos.ObterPorStatusAsync(statusTitulo);
 }

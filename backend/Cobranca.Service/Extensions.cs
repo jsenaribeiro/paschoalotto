@@ -75,7 +75,7 @@ public static class Extensions
         }
     }
 
-    public static async void RunMigrations(this WebApplication app)
+    public static async void RunMigrations(this WebApplication app, bool test = false)
     {
         await using var scope = app.Services.CreateAsyncScope();
 
@@ -85,7 +85,9 @@ public static class Extensions
 
         try
         {
-            if (context.Database.GetPendingMigrations().Any())
+            if (test) await DataBaseSeeder.SeedData(context);
+
+            else if (context.Database.GetPendingMigrations().Any())
             {
                 logger.LogInformation("Aplicando migrações pendentes...");
                 await context.Database.MigrateAsync();

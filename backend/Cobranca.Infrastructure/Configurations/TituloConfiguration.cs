@@ -8,9 +8,11 @@ public class TituloConfiguration : AbstractConfiguration<Titulo, uint>
 {
     public override void Configure(EntityTypeBuilder<Titulo> builder)
     {
-        builder.ToTable("titulos");
+        builder.ToTable("titulos").HasKey(t => t.Id);
 
-        builder.HasKey(t => t.Id);
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn();
 
         builder.Property(t => t.Numero)
             .IsRequired()

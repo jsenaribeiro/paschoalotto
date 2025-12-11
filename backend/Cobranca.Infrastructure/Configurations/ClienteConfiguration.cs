@@ -9,9 +9,11 @@ public class ClienteConfiguration : AbstractConfiguration<Cliente, uint>
 {
     public override void Configure(EntityTypeBuilder<Cliente> builder)
     {
-        builder.ToTable("clientes");
+        builder.ToTable("clientes").HasKey(d => d.Id);
 
-        builder.HasKey(d => d.Id);
+        builder.Property(d => d.Id)
+            .ValueGeneratedOnAdd()
+            .UseIdentityColumn();
 
         builder.Property(d => d.Nome)
             .IsRequired()

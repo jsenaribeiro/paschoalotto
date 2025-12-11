@@ -9,17 +9,42 @@ public class TituloRepository : AbstractRepository<Titulo, uint>, ITituloReposit
 
     public async Task<Titulo[]> ObterAtrasadosAsync()
     {
-        var titulos = await _contextSet
+        var tituloIds = await _contextSet
             .Include(t => t.Parcelas)
-            .ThenInclude(p => p.Titulo)
             .SelectMany(t => t.Parcelas)
+            .Include(p => p.Titulo)
+            .ThenInclude(t => t.Devedor)
             .Where(p => p.DataVencimento < DateTime.Today)
             .Where(p => p.DataPagamento == null)
+            .Where(p => p.Titulo != null)
             .Select(p => p.Titulo)
-            .Where(t => t != null)
+            .Select(t => t.Id)
             .Distinct()
             .ToArrayAsync();
 
+        var titulos = await _contextSet
+            .Include(t => t.Devedor)
+            .Include(t => t.Parcelas)
+            .Where(t => tituloIds.Contains(t.Id))
+            .ToArrayAsync();
+
         return titulos.Where(x => x is not null).ToArray()!;
+    }
+
+    public Task<Titulo[]> ObterPorStatusAsync(StatusTitulo status)
+    {
+        return _contextSet
+            .Include(t => t.Devedor)
+            .Include(t => t.Parcelas)
+            .Where(t => t.Status == status)
+            .ToArrayAsync();
+    }
+
+    public Task<Titulo[]> ObterTodosAsync()
+    {
+        return _contextSet
+            .Include(t => t.Devedor)
+            .Include(t => t.Parcelas)
+            .ToArrayAsync();
     }
 }
