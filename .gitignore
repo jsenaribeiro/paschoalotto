@@ -1,0 +1,56 @@
+# Build
+bin/
+obj/
+
+# Visual Studio / VSCode
+.vscode/
+.vs/
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Logs
+*.log
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# Dotnet SDK artifacts
+project.lock.json
+project.fragment.lock.json
+
+# ASP.NET temp
+App_Data/
+
+# Azure
+*.PublishSettings
+PublishProfiles/
+
+# Resharper / Rider
+_ReSharper*/
+*.DotSettings.user
+.idea/
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# Transient files
+*.tmp
+*.temp
+~$*
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Secret files
+*.secret.json
+appsettings.Local.json
+appsettings.Development.Local.json

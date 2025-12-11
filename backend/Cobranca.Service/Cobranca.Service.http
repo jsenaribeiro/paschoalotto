@@ -1,0 +1,6 @@
+@Cobranca.Service_HostAddress = http://localhost:5159
+
+GET {{Cobranca.Service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
