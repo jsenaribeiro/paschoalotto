@@ -1,0 +1,57 @@
+:host ::ng-deep .custom-table .p-datatable-thead > tr > th {
+    background: linear-gradient(to bottom, #444, #333);
+    color: #fff;
+}
+
+:host ::ng-deep .custom-table .p-datatable-tbody > tr {
+    color: #777;
+    background: #111;
+    filter: brightness(1.5);
+}
+
+:host ::ng-deep .custom-table .p-datatable-tbody > tr:nth-child(even) {
+    background: #111;
+    filter: brightness(2);
+    border: 0;
+}
+
+:host table, :host th, :host td {
+    border: none !important;
+}
+
+
+#desafio {
+    zoom: 0.9;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 0 auto;
+    font-size: 0.95rem;
+
+    & label {
+        display: block;
+        font-weight: 700;
+        font-size: 1.2rem;
+        text-align: left;
+        color: #EEE;
+        letter-spacing: 1px;
+    }
+
+    & aside li { 
+        list-style: none; 
+        padding: 3px 0; 
+        font-weight: 300;
+    }
+
+    & aside:first-of-type {
+        border-right: 3px solid #777;
+        padding-right: 40px;
+    }
+
+    & aside:first-of-type li::after {
+        content: " ●";
+    }
+    
+    & aside:last-of-type li::before {
+        content: "● ";
+    }
+}

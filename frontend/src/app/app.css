@@ -1,0 +1,16 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+:root {
+    --font-family: 'Lato', sans-serif;
+    --surface-ground: #333;
+    --primary-color: steelblue;   
+    --p-button-primary-bg: var(--primary-color) !important;
+}
+
+footer {
+   background: var(--p-toolbar-background)
+}

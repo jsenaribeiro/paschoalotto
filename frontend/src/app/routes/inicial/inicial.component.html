@@ -1,0 +1,33 @@
+<div class="p-4 text-center" style="margin: 0 auto; width: 900px;">
+   <h1>Desafio tech lead</h1>
+   <p>Desafio técnico para seleção de líder técnico com sistema de cobrança usando Angular + PrimeNG</p>
+   <p hidden>
+      <b>Campos exibidos</b>: Número do título, Nome do devedor, Quantidade de parcelas,
+      Valor original, Dias em atraso, Valor atualizado Multa, Juros totais
+   </p>
+</div>
+
+<main id="desafio" class="card justify-content-center">
+   <aside>
+      <label class="text-right">Regras de Negócio</label>
+      <ul class="text-right">
+         <li>Valor = soma das parcelas</li>
+         <li>Multa = 2% do valor original</li>
+         <li>Juros = 1%/dia por parcela</li>
+         <li>Total = valor + multa + juros</li>
+         <li>Calcular com base na data atual</li>
+      </ul>
+   </aside>
+
+   <aside>
+      <label class="px-5">Critérios de Aceite</label>
+      <ul>
+         <li>Listar informações obrigatórias</li>
+         <li>Cálculo da multa sempre 2%</li>
+         <li>Juros calculados conforme fórmula</li>
+         <li>Valor atualizado deve ser a soma correta</li>
+         <li>Dias em atraso calculados automaticamente</li>
+         <li>Resultados com duas casas decimais</li>
+      </ul>
+   </aside>
+</main>

@@ -1,0 +1,6 @@
+pendencias
+- consultar titulos baseado na api (comentar fake titulos)
+- integrar com banco de dados do compose (nao usar o inmemory db)
+- paginacao + ordenacao
+- tela de carregamento
+- testes funcionais 

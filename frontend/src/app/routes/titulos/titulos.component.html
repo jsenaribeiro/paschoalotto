@@ -1,0 +1,40 @@
+<div class="p-4 text-center">
+   <h1>Lista de títulos em atraso</h1>
+   <p>
+      Lista de títulos em atraso com seus valores atualizados,
+      para análises e tomadas de decisões precisas sobre ações de cobrança.
+   </p>
+</div>
+
+<div class="card m-4 flex justify-content-center">
+   <p-table [value]="titulos()" class="p-datatable-striped custom-table" [style]="{'width': 'fit-content'}">
+      <ng-template pTemplate="header">
+         <tr>
+            <th>Número</th>
+            <th>Devedor</th>
+            <th>Parcelas</th>
+            <th>Vencimento</th>
+            <th>Valor</th>
+            <th>Atraso</th>
+            <th>Multa</th>
+            <th>Juros</th>
+            <th>Total</th>
+            <th>Status</th>
+         </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-t>
+         <tr>
+            <td>{{ t.numeroTitulo }}</td>
+            <td>{{ t.nomeDevedor }}</td>
+            <td class="text-center">{{ t.quantidadeParcelas }}</td>
+            <td>{{ t.dataVencimento | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ format('money', t.valorOriginal) }}</td>
+            <td>{{ atrasoDescricao(t.diasEmAtraso) }}</td>
+            <td>{{ format('money', t.multa) }}</td>
+            <td>{{ format('money', t.jurosTotais) }}</td>
+            <td class="font-bold">{{ format('money', t.valorAtualizado) }}</td>
+            <td>{{ t.status }}</td>
+         </tr>
+      </ng-template>
+   </p-table>
+</div>
