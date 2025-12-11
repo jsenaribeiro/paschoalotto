@@ -1,8 +1,12 @@
+# ============================
+# .NET / Visual Studio / VSCode
+# ============================
+
 # Build
 bin/
 obj/
 
-# Visual Studio / VSCode
+# Visual Studio / VS Code
 .vscode/
 .vs/
 
@@ -50,7 +54,68 @@ coverage/
 .DS_Store
 Thumbs.db
 
-# Secret files
+# Secrets
 *.secret.json
 appsettings.Local.json
 appsettings.Development.Local.json
+
+
+# ============================
+# Angular / Node
+# ============================
+
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json.old
+
+# Angular build output
+dist/
+dist-ssr/
+out-tsc/
+
+# Angular cache
+.angular/
+.angular/cache/
+.angular/cache/*
+.angular/*
+
+# Environment files (caso você use env locais)
+src/environments/*.local.ts
+src/environments/*.dev.ts
+src/environments/*.env.ts
+
+# Misc
+*.tgz
+*.cache
+*.temp
+
+# VSCode Angular settings
+.vscode/settings.json
+.vscode/tasks.json
+
+# IDE web
+*.swp
+*.swo
+
+
+# ============================
+# Browsers / Tools
+# ============================
+
+# Chrome
+chrome-profile/
+chrome-data/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+.cypress-cache/
+Cypress/*log
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/
