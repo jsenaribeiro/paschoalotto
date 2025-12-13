@@ -1,4 +1,4 @@
-import { Parcela } from "./parcela";
+import type { Parcela } from "./parcela";
 
 export interface Titulo {
    id: number;
@@ -16,7 +16,11 @@ export interface Titulo {
    status: TituloStatus;
 }
 
-export type TituloStatus = 'EM_ABERTO' | 'PAGO' | 'CANCELADO' | 'NEGOCIADO';
+export enum TituloStatus {
+   EM_ABERTO = 0,
+   LIQUIDADO = 1,
+   CANCELADO = 2,
+}
 
 export interface TituloDetalhado extends Titulo {
    parcelas: Parcela[];
@@ -25,6 +29,3 @@ export interface TituloDetalhado extends Titulo {
    emailDevedor?: string;
    observacoes?: string;
 }
-
-
-

@@ -1,6 +1,6 @@
 # Cobrança
 
-## Arquitetura
+## backend
 - soft delete
 - unit of work
 - cache response
@@ -8,3 +8,7 @@
 - paging repository
 - fluent repository
 - abstract respository
+
+## frontend
+- client-side paginator 
+- support to server-side paging

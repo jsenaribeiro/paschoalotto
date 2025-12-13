@@ -25,7 +25,9 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/layout/css/layout-genesis.css", 
+              "src/assets/theme/theme-genesis-orange.css"
             ],
             "scripts": []
           },

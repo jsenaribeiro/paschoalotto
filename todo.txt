@@ -1,5 +1,8 @@
 pendencias
-- consultar titulos baseado na api (comentar fake titulos)
-- integrar com banco de dados do compose (nao usar o inmemory db)
-- paginacao + ordenacao + carregamento
-- testes funcionais via compose
++ executar servicos direto do docker compose
++ consultar titulos baseado na api (comentar fake titulos)
++ paginacao + ordenacao + carregamento
++ testes funcionais via compose
+- usar sql server do compose 
+- revisar requisitos
+- testar regras

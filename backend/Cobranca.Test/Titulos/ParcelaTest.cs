@@ -32,7 +32,7 @@ public class ParcelaTest
     {
         var parcela = new Parcela(1, 100, DateTime.Today.AddDays(1));
 
-        Assert.Equal(StatusParcela.EmAberto, parcela.Status);
+        Assert.Equal(ParcelaStatus.EmAberto, parcela.Status);
     }
 
     [Fact]
@@ -40,7 +40,7 @@ public class ParcelaTest
     {
         var parcela = new Parcela(1, 100, DateTime.Today.AddDays(-1));
 
-        Assert.Equal(StatusParcela.Vencida, parcela.Status);
+        Assert.Equal(ParcelaStatus.Vencida, parcela.Status);
     }
 
     [Fact]
@@ -50,7 +50,7 @@ public class ParcelaTest
 
         parcela.Pagar(parcela.Total);
 
-        Assert.Equal(StatusParcela.Paga, parcela.Status);
+        Assert.Equal(ParcelaStatus.Paga, parcela.Status);
     }
 
     [Fact]

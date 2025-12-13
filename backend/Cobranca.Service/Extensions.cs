@@ -2,10 +2,23 @@ using Cobranca.Domain;
 using Cobranca.Domain.Titulos;
 using Cobranca.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 public static class Extensions
 {
+    public static ILogger<T> ConfigureLogging<T>(this WebApplicationBuilder builder)
+    {
+        builder.Logging.SetMinimumLevel(LogLevel.Trace);
+        builder.Logging.AddNLog();
+        builder.Host.UseNLog();
+
+        using var provider = builder.Services.BuildServiceProvider();
+
+        return provider.GetRequiredService<ILogger<T>>();
+    }
+
     public static IServiceCollection AddSwagger(this IServiceCollection services, string version)
     {
         services.AddSwaggerGen(c =>

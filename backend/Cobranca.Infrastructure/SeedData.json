@@ -1,0 +1,187 @@
+[
+	{
+		"numero": "TIT-2025-001",
+		"dataEmissao": "2025-11-01T00:00:00",
+		"valor": 100,
+		"parcelas": 2,
+		"observacao": "Compra de equipamentos",
+		"devedor": {
+			"nome": "João Silva",
+			"cpfCnpj": "123.456.789-00",
+			"email": "joao.silva@email.com",
+			"telefone": "(11) 99999-9999",
+			"endereco": "Rua A, 123 - São Paulo/SP"
+		}
+	},
+	{
+		"numero": "TIT-2025-002",
+		"dataEmissao": "2025-04-20T00:00:00",
+		"valor": 50,
+		"parcelas": 1,
+		"observacao": "Serviço de consultoria",
+		"devedor": {
+			"nome": "Maria Santos",
+			"cpfCnpj": "987.654.321-00",
+			"email": "maria.santos@email.com",
+			"telefone": "(21) 98888-8888",
+			"endereco": "Av. B, 456 - Rio de Janeiro/RJ"
+		}
+	},
+	{
+		"numero": "TIT-2025-003",
+		"dataEmissao": "2025-05-10T00:00:00",
+		"valor": 150,
+		"parcelas": 3,
+		"observacao": "Fornecimento de materiais",
+		"devedor": {
+			"nome": "Empresa XYZ Ltda",
+			"cpfCnpj": "12.345.678/0001-99",
+			"email": "contato@xyz.com",
+			"telefone": "(31) 97777-7777",
+			"endereco": "Rua C, 789 - Belo Horizonte/MG"
+		}
+	},
+	{
+		"numero": "TIT-2025-001",
+		"dataEmissao": "2025-01-15T00:00:00",
+		"valor": 1200,
+		"parcelas": 4,
+		"observacao": "Manutenção de sistema",
+		"devedor": {
+			"nome": "Carlos Oliveira",
+			"cpfCnpj": "111.222.333-44",
+			"email": "carlos.o@email.com",
+			"telefone": "(11) 91234-5678",
+			"endereco": "Rua das Flores, 10"
+		}
+	},
+	{
+		"numero": "TIT-2025-002",
+		"dataEmissao": "2025-02-20T00:00:00",
+		"valor": 500,
+		"parcelas": 2,
+		"observacao": "Consultoria Jurídica",
+		"devedor": {
+			"nome": "Ana Pereira",
+			"cpfCnpj": "222.333.444-55",
+			"email": "ana.p@email.com",
+			"telefone": "(21) 99876-5432",
+			"endereco": "Av. Paulista, 2000"
+		}
+	},
+	{
+		"numero": "TIT-2025-005",
+		"dataEmissao": "2025-05-05T00:00:00",
+		"valor": 1500,
+		"parcelas": 3,
+		"observacao": "Design Gráfico",
+		"devedor": {
+			"nome": "Julia Lima",
+			"cpfCnpj": "555.666.777-88",
+			"email": "julia.l@email.com",
+			"telefone": "(51) 97777-6666",
+			"endereco": "Av. Ipiranga, 500"
+		}
+	},
+	{
+		"numero": "TIT-2025-050",
+		"dataEmissao": "2025-06-01T00:00:00",
+		"valor": 10000,
+		"parcelas": 10,
+		"observacao": "Reforma Escritório",
+		"devedor": {
+			"nome": "Construções SA",
+			"cpfCnpj": "88.999.000/0001-11",
+			"email": "obras@construcoes.com",
+			"telefone": "(81) 3444-3333",
+			"endereco": "Av. Boa Viagem, 1000"
+		}
+	},
+	{
+		"numero": "TIT-2025-001",
+		"dataEmissao": "2025-11-15T00:00:00",
+		"valor": 800,
+		"parcelas": 2,
+		"observacao": "Treinamento Equipe",
+		"devedor": {
+			"nome": "Roberto Costa",
+			"cpfCnpj": "444.555.666-77",
+			"email": "roberto.c@email.com",
+			"telefone": "(41) 98888-7777",
+			"endereco": "Rua das Araucárias, 30"
+		}
+	},
+	{
+		"numero": "TIT-2025-002",
+		"dataEmissao": "2025-12-01T00:00:00",
+		"valor": 600,
+		"parcelas": 1,
+		"observacao": "Tradução de Documentos",
+		"devedor": {
+			"nome": "Fernanda Alves",
+			"cpfCnpj": "777.888.999-00",
+			"email": "fernanda.a@email.com",
+			"telefone": "(71) 96666-5555",
+			"endereco": "Rua do Pelourinho, 10"
+		}
+	},
+	{
+		"numero": "TIT-2025-003",
+		"dataEmissao": "2025-10-15T00:00:00",
+		"valor": 120,
+		"parcelas": 1,
+		"observacao": "Hospedagem Site",
+		"devedor": {
+			"nome": "Lucas Martins",
+			"cpfCnpj": "000.111.222-33",
+			"email": "lucas.m@email.com",
+			"telefone": "(11) 94444-3333",
+			"endereco": "Rua Augusta, 500"
+		}
+	},
+	{
+		"numero": "TIT-2025-003",
+		"dataEmissao": "2025-03-10T00:00:00",
+		"valor": 3000,
+		"parcelas": 6,
+		"observacao": "Licença de Software",
+		"devedor": {
+			"nome": "Tech Solutions",
+			"cpfCnpj": "33.444.555/0001-66",
+			"email": "financeiro@tech.com",
+			"telefone": "(31) 3333-4444",
+			"endereco": "Rua da Inovação, 500"
+		},
+		"cancelado": true
+	},
+	{
+		"numero": "TIT-2025-006",
+		"dataEmissao": "2025-06-10T00:00:00",
+		"valor": 2500,
+		"parcelas": 5,
+		"observacao": "Campanha Publicitária",
+		"devedor": {
+			"nome": "Moda e Estilo",
+			"cpfCnpj": "66.777.888/0001-99",
+			"email": "contato@moda.com",
+			"telefone": "(61) 3333-2222",
+			"endereco": "Setor Comercial Sul, Bloco A"
+		},
+		"cancelado": true
+	},
+	{
+		"numero": "TIT-2025-009",
+		"dataEmissao": "2025-09-01T00:00:00",
+		"valor": 450,
+		"parcelas": 3,
+		"observacao": "Suporte Técnico",
+		"devedor": {
+			"nome": "Pedro Santos",
+			"cpfCnpj": "999.000.111-22",
+			"email": "pedro.s@email.com",
+			"telefone": "(91) 95555-4444",
+			"endereco": "Rua das Mangueiras, 20"
+		},
+		"cancelado": true
+	}
+]

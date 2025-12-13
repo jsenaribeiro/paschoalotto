@@ -10,7 +10,9 @@ public record TituloResponse(
     uint DiasEmAtraso,
     decimal Multa,
     decimal JurosTotais,
-    decimal ValorAtualizado
+    decimal ValorAtualizado,
+    DateTime DataVencimento,
+    TituloStatus Status
 )
 {
     public TituloResponse() : this(
@@ -21,7 +23,9 @@ public record TituloResponse(
         DiasEmAtraso: 0,
         Multa: 0m,
         JurosTotais: 0m,
-        ValorAtualizado: 0m
+        ValorAtualizado: 0m,
+        DataVencimento: DateTime.MinValue,
+        Status: TituloStatus.EmAberto
     )
     { }
 
@@ -33,7 +37,9 @@ public record TituloResponse(
         DiasEmAtraso: (uint)titulo.Parcelas.Sum(p => p.DiasDeAtraso),
         Multa: titulo.Total.Multa,
         JurosTotais: titulo.Total.Juros,
-        ValorAtualizado: titulo.Total.Valor
+        ValorAtualizado: titulo.Total.Valor,
+        DataVencimento: titulo.Parcelas.Max(p => p.DataVencimento),
+        Status: titulo.Status
     )
     { }
 }

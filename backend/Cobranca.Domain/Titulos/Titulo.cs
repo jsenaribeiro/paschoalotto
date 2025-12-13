@@ -18,10 +18,10 @@ public class Titulo : Entity<uint>
         Numero = numero;
         Devedor = devedor;
         DataEmissao = dataEmissao;
-        Status = StatusTitulo.EmAberto;
+        Status = TituloStatus.EmAberto;
         Valor = valor;
 
-        Parcelar(parcelas);;
+        Parcelar(parcelas); ;
     }
 
     public Titulo(string numero, DateTime dataEmissao, Cliente devedor, decimal valor, uint parcelas, string observacao)
@@ -37,7 +37,7 @@ public class Titulo : Entity<uint>
 
     public string? Observacao { get; private set; }
 
-    public StatusTitulo Status { get; private set; }
+    public TituloStatus Status { get; private set; }
 
     public DateTime DataEmissao { get; set; }
 
@@ -46,7 +46,7 @@ public class Titulo : Entity<uint>
 
     private readonly List<Parcela> _parcelas = new();
 
-    public bool EmAtraso => Status == StatusTitulo.EmAberto
+    public bool EmAtraso => Status == TituloStatus.EmAberto
         && this.Parcelas.Where(p => p.DataVencimento < DateTime.Today)
                         .Any(p => p.DataPagamento == null);
 
@@ -76,5 +76,5 @@ public class Titulo : Entity<uint>
         }
     }
 
-    public void Cancelar(DateTime dataPagamento) => Status = StatusTitulo.Cancelado;
+    public void Cancelar(DateTime dataPagamento) => Status = TituloStatus.Cancelado;
 }

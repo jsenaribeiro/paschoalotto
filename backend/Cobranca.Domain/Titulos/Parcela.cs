@@ -19,22 +19,22 @@ public class Parcela : Entity<uint>
 
     public DateTime? DataPagamento { get; private set; }
 
-    public StatusParcela Status => DataPagamento.HasValue ? StatusParcela.Paga 
-        : DataVencimento.Date < DateTime.Today ? StatusParcela.Vencida
-        : StatusParcela.EmAberto;
+    public ParcelaStatus Status => DataPagamento.HasValue ? ParcelaStatus.Paga
+        : DataVencimento.Date < DateTime.Today ? ParcelaStatus.Vencida
+        : ParcelaStatus.EmAberto;
 
     public Titulo? Titulo { get; protected set; }
 
     public uint TituloId { get; protected set; }
 
     public string? Observacao { get; set; }
-    
+
     public decimal ValorPago { get; private set; }
 
     public Parcela(uint numero, decimal valor, DateTime dataVencimento)
     {
         if (numero == 0) throw new ArgumentException("Número da parcela deve maior que zero");
-        if (valor== 0) throw new ArgumentException("Valor da parcela deve maior que zero");
+        if (valor == 0) throw new ArgumentException("Valor da parcela deve maior que zero");
 
         Valor = valor;
         Numero = numero;
@@ -43,17 +43,17 @@ public class Parcela : Entity<uint>
 
     public void Pagar(decimal valor)
     {
-        if (Status == StatusParcela.Paga) throw new InvalidOperationException("Parcela já está paga");
+        if (Status == ParcelaStatus.Paga) throw new InvalidOperationException("Parcela já está paga");
         if (valor < Total) throw new ArgumentException("Valor pago é menor que o total da parcela");
-        
+
         ValorPago = valor;
         DataPagamento = DateTime.Now;
     }
 
     public void Ajustar(decimal valor)
     {
-        if (Status == StatusParcela.Paga) throw new InvalidOperationException("Parcela já está paga");
-        
+        if (Status == ParcelaStatus.Paga) throw new InvalidOperationException("Parcela já está paga");
+
         Valor = valor;
     }
 

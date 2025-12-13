@@ -24,7 +24,7 @@ public class TituloRepository : AbstractRepository<Titulo, uint>, ITituloReposit
             .ToArrayAsync();
     }
 
-    public Task<Titulo[]> ObterPorStatusAsync(StatusTitulo status)
+    public Task<Titulo[]> ObterPorStatusAsync(TituloStatus status)
     {
         return _contextSet
             .Include(t => t.Devedor)

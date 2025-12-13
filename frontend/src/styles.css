@@ -3,50 +3,75 @@
 @import "material-icons/iconfont/material-icons.css";
 
 @font-face {
-    font-family: 'Agave';
-    src: url('https://cdn.jsdelivr.net/gh/blobject/agave@master/dist/Agave-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+	font-family: "Agave";
+	src: url("https://cdn.jsdelivr.net/gh/blobject/agave@master/dist/Agave-Regular.ttf")
+		format("truetype");
+	font-weight: normal;
+	font-style: normal;
 }
 
 @font-face {
-    font-family: 'Agave';
-    src: url('https://cdn.jsdelivr.net/gh/blobject/agave@master/dist/Agave-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+	font-family: "Agave";
+	src: url("https://cdn.jsdelivr.net/gh/blobject/agave@master/dist/Agave-Bold.ttf")
+		format("truetype");
+	font-weight: bold;
+	font-style: normal;
 }
 
 :root {
-   --surface-ground: #333;
-   --primary-color: steelblue;   
-   --font-family: 'Fira Sans', sans-serif;
-   --p-button-primary-bg: var(--primary-color) !important;
+	--surface-ground: #333;
+	--primary-color: steelblue;
+	--font-family: "Fira Sans", sans-serif;
+	--p-button-primary-bg: var(--primary-color) !important;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    background-color: var(--surface-ground);
-    font-family: 'Fira Sans', sans-serif;
-    font-weight: 100;
-    color: var(--text-color);
+	margin: 0;
+	padding: 0;
+	min-height: 100vh;
+	background-color: var(--surface-ground);
+	font-family: "Fira Sans", sans-serif;
+	font-weight: 100;
+	color: var(--text-color);
 }
 
 table {
-   font-family: 'Agave', monospace;
+	font-family: "Agave", monospace;
 }
 
-html { height: 100%; }
+html {
+	height: 100%;
+}
 
 p-button[routerlink],
-p-button[routerlink] * { border: 0 !important; }
+p-button[routerlink] * {
+	border: 0 !important;
+}
 
 p-button[routerlink] * {
-   background-color: #555;
-   color: white;
+	background-color: #555;
+	color: white;
 }
 
 p-button.route-active * {
-   background-color: steelblue !important;
+	background-color: steelblue !important;
 }
+
+p-paginator {
+	justify-content: start;
+}
+
+.p-paginator-current,
+.p-paginator-last {
+	margin-right: auto;
+}
+
+/* .p-paginator .p-paginator-rpp-options {
+	position: absolute;
+	left: 0;
+} */
+
+/* .p-paginator .p-paginator-current {
+	position: absolute;
+	right: 0;
+} */

@@ -1,6 +1,6 @@
 namespace Cobranca.Domain.Titulos;
 
-public enum StatusParcela
+public enum ParcelaStatus
 {
    EmAberto = 1,
    Paga = 2,

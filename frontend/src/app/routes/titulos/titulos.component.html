@@ -1,13 +1,14 @@
 <div class="p-4 text-center">
    <h1>Lista de títulos em atraso</h1>
-   <p>
-      Lista de títulos em atraso com seus valores atualizados,
-      para análises e tomadas de decisões precisas sobre ações de cobrança.
-   </p>
+   Lista de títulos em atraso com seus valores atualizados,
+   para análises e tomadas de decisões precisas sobre ações de cobrança.
 </div>
 
 <div class="card m-4 flex justify-content-center">
-   <p-table [value]="titulos()" class="p-datatable-striped custom-table" [style]="{'width': 'fit-content'}">
+   <p-table [value]="titulos()" class="p-datatable-striped custom-table" [style]="{'width': 'fit-content'}"
+      [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true" [paginator]="true" [rows]="5"
+      currentPageReportTemplate="{totalRecords} registros"
+      paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport">
       <ng-template pTemplate="header">
          <tr>
             <th>Número</th>
@@ -33,7 +34,9 @@
             <td>{{ format('money', t.multa) }}</td>
             <td>{{ format('money', t.jurosTotais) }}</td>
             <td class="font-bold">{{ format('money', t.valorAtualizado) }}</td>
-            <td>{{ t.status }}</td>
+            <td [class]="cs.getStatusBadge(t.status).class" title="{{ t.status }}">
+               {{ cs.getStatusBadge(t.status).text}}
+            </td>
          </tr>
       </ng-template>
    </p-table>

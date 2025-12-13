@@ -63,10 +63,10 @@ public class TituloServiceTest : AbstractTest
 
         await _unitOfWork.Titulos.CreateAsync(titulo);
 
-        var result = await _service.ObterTodosTitulosAsync(StatusTitulo.EmAberto);
+        var result = await _service.ObterTodosTitulosAsync(TituloStatus.EmAberto);
 
         Assert.Single(result);
-        Assert.Equal(StatusTitulo.EmAberto, result[0].Status);
+        Assert.Equal(TituloStatus.EmAberto, result[0].Status);
 
         await _unitOfWork.Titulos.DeleteAsync(titulo);
     }

@@ -41,7 +41,7 @@ public class TituloTest
     [Fact]
     public void SeDevedorNulo_DeveLancarExcecao()
     {
-        var ex = Assert.Throws<ArgumentException>(() => new Titulo("123", null, DateTime.Today, 100,2));
+        var ex = Assert.Throws<ArgumentException>(() => new Titulo("123", null, DateTime.Today, 100, 2));
 
         ex.Message.ShouldContain("Devedor é obrigatório");
     }
@@ -72,7 +72,7 @@ public class TituloTest
 
         titulo.Cancelar(DateTime.Today);
 
-        titulo.Status.ShouldBe(StatusTitulo.Cancelado);
+        titulo.Status.ShouldBe(TituloStatus.Cancelado);
     }
 
     [Fact]
