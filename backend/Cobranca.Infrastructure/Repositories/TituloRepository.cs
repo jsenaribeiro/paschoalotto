@@ -9,26 +9,19 @@ public class TituloRepository : AbstractRepository<Titulo, uint>, ITituloReposit
 
     public async Task<Titulo[]> ObterAtrasadosAsync()
     {
-        var tituloIds = await _contextSet
-            .Include(t => t.Parcelas)
-            .SelectMany(t => t.Parcelas)
-            .Include(p => p.Titulo)
-            .ThenInclude(t => t.Devedor)
-            .Where(p => p.DataVencimento < DateTime.Today)
-            .Where(p => p.DataPagamento == null)
-            .Where(p => p.Titulo != null)
-            .Select(p => p.Titulo)
-            .Select(t => t.Id)
-            .Distinct()
-            .ToArrayAsync();
+        var query = from t in _contextSet
+                    join p in _context.Parcelas on t.Id equals p.TituloId
+                    where p.DataVencimento < DateTime.Today
+                       && p.DataPagamento == null
+                       && t.Audit.DeletedAt == null
+                       && p.Audit.DeletedAt == null
+                    select t;
 
-        var titulos = await _contextSet
+        return await query
             .Include(t => t.Devedor)
             .Include(t => t.Parcelas)
-            .Where(t => tituloIds.Contains(t.Id))
+            .Distinct()
             .ToArrayAsync();
-
-        return titulos.Where(x => x is not null).ToArray()!;
     }
 
     public Task<Titulo[]> ObterPorStatusAsync(StatusTitulo status)
@@ -37,6 +30,7 @@ public class TituloRepository : AbstractRepository<Titulo, uint>, ITituloReposit
             .Include(t => t.Devedor)
             .Include(t => t.Parcelas)
             .Where(t => t.Status == status)
+            .Where(t => t.Audit.DeletedAt == null)
             .ToArrayAsync();
     }
 
@@ -45,6 +39,7 @@ public class TituloRepository : AbstractRepository<Titulo, uint>, ITituloReposit
         return _contextSet
             .Include(t => t.Devedor)
             .Include(t => t.Parcelas)
+            .Where(t => t.Audit.DeletedAt == null)
             .ToArrayAsync();
     }
 }

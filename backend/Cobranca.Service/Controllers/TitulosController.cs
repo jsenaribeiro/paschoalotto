@@ -10,21 +10,26 @@ namespace Cobranca.Service.Controllers;
 [Route("api/[controller]")]
 public class TitulosController : AbstractController<TitulosController>
 {
+    const int TIMEOUT_CACHE = 60;
+
     private readonly TituloService _tituloService;
 
-    public TitulosController(IServiceProvider provider): base(provider) =>
+    public TitulosController(IServiceProvider provider) : base(provider) =>
         _tituloService = provider.GetRequiredService<TituloService>();
 
     [HttpGet]
-    public Task<IActionResult> ObterTodosOsTitulos() => 
+    [ResponseCache(Duration = TIMEOUT_CACHE)]
+    public Task<IActionResult> ObterTodosOsTitulos() =>
         TryAsync(_tituloService.ObterTodosTitulosAsync(), t => new TituloResponse(t));
 
 
     [HttpGet("{status}")]
-    public Task<IActionResult> ObterTitulosPorStatus(StatusTitulo status) =>
+    [ResponseCache(Duration = TIMEOUT_CACHE, VaryByQueryKeys = new[] { "status" })]
+    public Task<IActionResult> ObterTitulosPorStatus([FromQuery] StatusTitulo status) =>
         TryAsync(_tituloService.ObterTodosTitulosAsync(status), t => new TituloResponse(t));
 
     [HttpGet("em-atraso")]
+    [ResponseCache(Duration = TIMEOUT_CACHE)]
     public Task<IActionResult> ObterTitulosEmAtraso() =>
         TryAsync(_tituloService.ObterTitulosEmAtrasoAsync(), t => new TituloResponse(t));
 }

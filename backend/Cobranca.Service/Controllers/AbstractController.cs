@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Cobranca.Service.Controllers;
 
-
 public class AbstractController<TController> : ControllerBase where TController : class
 {
     protected readonly ILogger<TController> _logger;
     protected readonly IUnitOfWork _uow;
 
-    protected AbstractController(IServiceProvider provider) 
-    { 
+    protected AbstractController(IServiceProvider provider)
+    {
         _logger = provider.GetRequiredService<ILogger<TController>>();
         _uow = provider.GetRequiredService<IUnitOfWork>();
     }
@@ -43,7 +42,7 @@ public class AbstractController<TController> : ControllerBase where TController 
         }
     }
 
-    public async Task<IActionResult> TryAsync<T, U>(Task<T[]> request, Func<T, U> transform) 
+    public async Task<IActionResult> TryAsync<T, U>(Task<T[]> request, Func<T, U> transform)
     {
         var result = await request;
         var modded = result.Select(x => transform(x));

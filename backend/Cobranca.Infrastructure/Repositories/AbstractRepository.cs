@@ -11,17 +11,25 @@ namespace Cobranca.Infrastructure.Repositories;
 public abstract class AbstractRepository<E, I> : IRepository<E, I>
    where E : Entity<I> where I : IEquatable<I>
 {
+    #region fields
+
     protected readonly SqlDbContext _context;
 
     protected DbSet<E> _contextSet => _context.Set<E>();
 
     protected readonly ILogger<IRepository<E, I>> _logger;
 
-    private (string? Field, Ordering Order) _sort = (null, Ordering.ASC);
+    private (string? Field, Order Order) _sort = (null, Order.ASC);
+
+    private bool _showSoftDeletedRecords = false;
+
+    private bool _asNoTracking = false;
 
     private IQueryable<E> _query;
 
-    private bool _showDeleted = false;
+    #endregion
+
+    #region constructors
 
     public AbstractRepository(IServiceProvider provider)
     {
@@ -30,100 +38,87 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
         _query = _contextSet;
     }
 
+    #endregion
+
+    #region fluents
+
+    private void fluentReset()
+    {
+        _query = _contextSet;
+        _showSoftDeletedRecords = false;
+        _sort = (null, Order.ASC);
+        _asNoTracking = false;
+    }
+
+    private T fluentAs<T>(bool reset, Func<T> function)
+    {
+        if (reset) fluentReset();
+        return function();
+    }
+
+    public IReadRepository<E, I> As(QueryFlags flags)
+    {
+        _asNoTracking = (flags & QueryFlags.NoTracked) == QueryFlags.NoTracked;
+        _showSoftDeletedRecords = (flags & QueryFlags.ShowDeleteds) == QueryFlags.ShowDeleteds;
+
+        return this;
+    }
+
+    private IQueryable<E> queryBy
+    {
+        get
+        {
+            var query = _query ?? _contextSet;
+
+            if (_asNoTracking) query = query.AsNoTracking();
+
+            if (_showSoftDeletedRecords == false)
+                query = query.Include(x => x.Audit)
+                               .Where(x => x.Audit.DeletedAt == null);
+
+            var (field, order) = _sort;
+
+            query = string.IsNullOrWhiteSpace(field) ? query
+               : order == Order.ASC ? query.OrderBy(field)
+               : query.OrderBy($"{field} descending");
+
+            return fluentAs(true, () => query);
+        }
+    }
+
     private IReadRepository<E, I> fluentOf(Action action) { action(); return this; }
 
-    public IReadRepository<E, I> OrderBy(string? field, Ordering order) =>
+    public IReadRepository<E, I> OrderBy(string? field, Order order) =>
        fluentOf(() => _sort = (field, order));
 
-    public IReadRepository<E, I> WithDeletedRecords() =>
-        fluentOf(() => _showDeleted = true);
-
-    public IReadRepository<E, I> FilterBy(Expression<Func<E, bool>> predicate) =>
+    public IReadRepository<E, I> Where(Expression<Func<E, bool>> predicate) =>
        fluentOf(() => _query = _query.Where(predicate));
 
-    public Task<E?> LoadAsync() => _query.FirstOrDefaultAsync();
+    #endregion
+
+    #region terminals
 
     public Task<E?> LoadAsync(I id) => _contextSet
        .FirstOrDefaultAsync(x => x.Id.Equals(id));
 
-    public async Task<bool> ExistsAsync()
+    public IAsyncEnumerable<E> LoopAsync() => queryBy.AsAsyncEnumerable();
+
+    public Task<E[]> ListAsync() => queryBy.AsQueryable().ToArrayAsync();
+
+    public async Task<PageList<E>> ListAsync((int number, int length) page)
     {
-        if (_showDeleted)
-        {
-            _showDeleted = false;
-            return await _query.AnyAsync(); 
-        }
+        var query = queryBy.AsQueryable();
 
-        return _query
-            .Include(x => x.Audit)
-            .Select(x => x.Audit)
-            .Any(x => x.DeletedAt == null);
-    }
+        var skip = (page.number - 1) * page.length;
 
-    public async Task<long> CountAsync()
-    {
-        if (_showDeleted)
-        {
-            _showDeleted = false;
-            return await _query.LongCountAsync();
-        }
+        var paged = page.length > 0
+           ? query.Skip(skip).Take(page.length)
+           : query;
 
-        return _query
-            .Include(x => x.Audit)
-            .Select(x => x.Audit)
-            .LongCount(x => x.DeletedAt == null);
-    }
+        var items = await paged.ToArrayAsync();
+        var total = await query.CountAsync();
 
-    public async Task<E[]> ListAsync(bool isReadOnly)
-    {
-        var query = isReadOnly ? _query : _query.AsNoTracking();
-
-        var result = await query.ToArrayAsync();
-
-        _query = _contextSet;
-        _showDeleted = false;
-
-        if (_showDeleted)
-        {
-            _showDeleted = false;
-            return result;
-        }
-
-        return result.Where(p => p.Audit.DeletedAt == null).ToArray();
-    }
-
-    public async Task<PageList<E>> ListAsync(int number, int length)
-    {
-        _query ??= _contextSet;
-        number = number == 0 ? 1 : number;
-
-        var (field, order) = _sort;
-        var skip = (number - 1) * length;
-
-        var ordered = string.IsNullOrWhiteSpace(field) ? _query
-           : order == Ordering.ASC ? _query.OrderBy(field)
-           : _query.OrderBy($"{field} descending");
-
-        var paging = length > 0
-           ? ordered.Skip(skip).Take(length)
-           : ordered;
-
-        var items = await paging.ToArrayAsync();
-        var total = await _query.CountAsync();
-
-        _sort = (null, Ordering.ASC);
-        _query = _contextSet;
-
-        if (_showDeleted)
-        {
-            _showDeleted = false;
-            return new(items, total);
-        }
-
-        var show = items.Where(p => p.Audit.DeletedAt == null).ToArray();
-        var diff = total - show.Length;
-
-        return new(show, total - diff);
+        return new(items, total);
     }
 
     public Task<E> CreateAsync(E? entity) => TryAsync(async () =>
@@ -143,7 +138,6 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
         ArgumentNullException.ThrowIfNull(entity);
 
         entity.Audit = Audit.UpdateOf(entity);
-
         _contextSet.Update(entity);
 
         await _context.SaveChangesAsync();
@@ -169,6 +163,31 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
             return false;
         }
     }
+
+    public async Task<bool> ExistsAsync()
+    {
+        if (_showSoftDeletedRecords == true)
+            return await fluentAs(true, () => _query.AnyAsync());
+
+        return _query
+            .Include(x => x.Audit)
+            .Select(x => x.Audit)
+            .Any(x => x.DeletedAt == null);
+    }
+
+    public async Task<long> CountAsync()
+    {
+        if (_showSoftDeletedRecords == true)
+            return await fluentAs(true, () => _query.LongCountAsync());
+
+        return _query.Include(x => x.Audit)
+                     .Select(x => x.Audit)
+                     .LongCount(x => x.DeletedAt == null);
+    }
+
+    #endregion
+
+    #region exceptions
 
     private Task<E> TryAsync(Func<Task<E>> callback)
     {
@@ -211,4 +230,6 @@ public abstract class AbstractRepository<E, I> : IRepository<E, I>
             throw new Exception("Erro inesperado", ex);
         }
     }
+
+    #endregion
 }

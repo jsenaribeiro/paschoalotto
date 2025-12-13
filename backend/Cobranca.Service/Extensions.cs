@@ -62,14 +62,14 @@ public static class Extensions
         return services;
     }
 
-    public static void UseSwagger(this WebApplication app, bool onlyInDevelopment)
+    public static void UseSwagger(this WebApplication app, string version, bool onlyInDevelopment)
     {
         if (!onlyInDevelopment || app.Environment.IsDevelopment())
         {
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Cobrança API v1");
+                c.SwaggerEndpoint($"/swagger/{version}/swagger.json", $"Cobrança API {version}");
                 c.RoutePrefix = "swagger";
             });
         }
