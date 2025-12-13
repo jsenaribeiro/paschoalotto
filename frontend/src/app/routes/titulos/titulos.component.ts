@@ -41,7 +41,7 @@ export class TituloListComponent implements OnInit {
    public resumo = signal<CobrancaResumo | null>(null);
    public loading = signal(true);
    public searchTerm = "";
-   public statusFilter = "";]
+   public statusFilter = "";
    public searchSubject = new Subject<string>();
    public pageSize = 10;
    public currentPage = 1;
