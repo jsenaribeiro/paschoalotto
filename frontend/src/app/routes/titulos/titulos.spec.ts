@@ -33,15 +33,14 @@ describe("TituloListComponent", () => {
       },
    ];
 
-   const getTitulos = vi.fn().mockReturnValue(of(mockTitulos));
-
    beforeEach(async () => {
+      const getTitulos = vi.fn().mockReturnValue(of(mockTitulos));
+
       cobrancaServiceMock = { getTitulos };
 
-      const providers = [
-         provideAnimations(),
-         { provide: CobrancaService, useValue: cobrancaServiceMock },
-      ];
+      const cobrancaProvider = { provide: CobrancaService, useValue: cobrancaServiceMock }
+
+      const providers = [ provideAnimations(), cobrancaProvider ];
 
       await TestBed.configureTestingModule({
          imports,

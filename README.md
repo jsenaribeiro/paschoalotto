@@ -25,6 +25,12 @@ Acesse os serviços pelas URLs:
  - **Frontend**: [http://localhost:4200](http://localhost:4200)
  - **Backend**: [http://localhost:5000](http://localhost:5000)
 
+Testes automatizados são executados assim:
+
+```
+cd frontend; npm test
+cd backend; dotnet test
+```
 
 ## Arquitetura
 
