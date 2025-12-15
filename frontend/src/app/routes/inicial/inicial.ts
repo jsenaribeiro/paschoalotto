@@ -1,28 +1,12 @@
-import { CommonModule } from "@angular/common";
 import { Component, type OnInit, signal } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { RouterModule } from "@angular/router";
-import { ButtonModule } from "primeng/button";
-import { CardModule } from "primeng/card";
-import { TableModule } from "primeng/table";
-import { ToolbarModule } from "primeng/toolbar";
 import type { CobrancaResumo, DashboardMetrics, Titulo } from "../../models";
+import { pageModules } from '../../shareds';
 
-@Component({
-	standalone: true,
-	selector: "app-inicial",
-	styleUrls: ["./inicial.component.css"],
-	templateUrl: "./inicial.component.html",
-	imports: [
-		CommonModule,
-		RouterModule,
-		ButtonModule,
-		CardModule,
-		ToolbarModule,
-		TableModule,
-		FormsModule,
-	],
-})
+@Component({ standalone: true,
+				 imports: pageModules,
+				 selector: "app-inicial",
+				 styleUrls: ["./inicial.css"],
+				 templateUrl: "./inicial.html" })
 export class InicialComponent implements OnInit {
 	public metrics = signal<DashboardMetrics | null>(null);
 	public resumo = signal<CobrancaResumo | null>(null);

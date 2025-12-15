@@ -7,6 +7,7 @@ export interface Titulo {
    cpfCnpj: string;
    dataVencimento: Date;
    dataEmissao: Date;
+   parcelas: Parcela[];
    quantidadeParcelas: number;
    valorOriginal: number;
    diasEmAtraso: number;
@@ -14,6 +15,7 @@ export interface Titulo {
    jurosTotais: number;
    valorAtualizado: number;
    status: TituloStatus;
+   total: { multa: 0, juros: 0, valor: 0 }
 }
 
 export enum TituloStatus {
@@ -23,7 +25,6 @@ export enum TituloStatus {
 }
 
 export interface TituloDetalhado extends Titulo {
-   parcelas: Parcela[];
    enderecoDevedor?: string;
    telefoneDevedor?: string;
    emailDevedor?: string;

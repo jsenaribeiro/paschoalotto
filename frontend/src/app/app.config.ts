@@ -5,7 +5,7 @@ import { provideRouter } from "@angular/router";
 import Lara from "@primeng/themes/lara";
 import { providePrimeNG } from "primeng/config";
 import { routes } from "./app.routes";
-import { loadingInterceptor } from "./shareds/loading/loading.interceptor";
+import { loadingInterceptor } from "./shareds/components/loading/loading.interceptor";
 
 export const appConfig: ApplicationConfig = {
 	providers: [

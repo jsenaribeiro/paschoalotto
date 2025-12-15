@@ -1,11 +1,11 @@
-<div class="p-4 text-center">
-   <h1>Lista de títulos em atraso</h1>
-   Lista de títulos em atraso com seus valores atualizados,
-   para análises e tomadas de decisões precisas sobre ações de cobrança.
-</div>
+<app-page-header 
+   title="Lista de títulos em atraso" 
+   description="Lista de títulos em atraso com seus valores atualizados, para análises e tomadas de decisões precisas sobre ações de cobrança.">
+</app-page-header>
 
-<div class="card m-4 flex justify-content-center">
-   <p-table [value]="titulos()" class="p-datatable-striped custom-table" [style]="{'width': 'fit-content'}"
+<div class="card m-4 flex flex-column gap-3">
+   <app-search-input  placeholder="Pesquisar por nome ou número..." (search)="onSearch($event)" />
+   <p-table [value]="filtrados()" class="p-datatable-striped custom-table" [style]="{'width': 'fit-content'}"
       [rowsPerPageOptions]="[5, 10, 20]" [showCurrentPageReport]="true" [paginator]="true" [rows]="5"
       currentPageReportTemplate="{totalRecords} registros"
       paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport">
@@ -30,12 +30,12 @@
             <td class="text-center">{{ t.quantidadeParcelas }}</td>
             <td>{{ t.dataVencimento | date: 'dd/MM/yyyy' }}</td>
             <td>{{ format('money', t.valorOriginal) }}</td>
-            <td>{{ atrasoDescricao(t.diasEmAtraso) }}</td>
+            <td>{{ atraso(t.diasEmAtraso) }}</td>
             <td>{{ format('money', t.multa) }}</td>
             <td>{{ format('money', t.jurosTotais) }}</td>
             <td class="font-bold">{{ format('money', t.valorAtualizado) }}</td>
-            <td [class]="cs.getStatusBadge(t.status).class" title="{{ t.status }}">
-               {{ cs.getStatusBadge(t.status).text}}
+            <td>
+               <app-status-badge [status]="t.status"></app-status-badge>
             </td>
          </tr>
       </ng-template>
